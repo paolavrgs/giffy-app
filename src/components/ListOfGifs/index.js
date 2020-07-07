@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import getGifs from '../services/getGifs'
-import Gif from './Gif'
+import './ListOfGifs.css'
+import getGifs from '../../services/getGifs'
+import Spinner from '../Spinner'
+import Gif from '../Gif'
 
 export default function ListOfGifs({ keyword }) {
   const [gifs, setGifs] = useState([])
@@ -15,10 +17,10 @@ export default function ListOfGifs({ keyword }) {
       })
   }, [keyword])
 
-  if (loading) return <div className="loading">Cargando...</div>
+  if (loading) return <Spinner />
 
   return (
-    <>
+    <div className="list-gifs">
       { gifs.map(({id, title, url}) =>
         <Gif
           key={id}
@@ -27,6 +29,6 @@ export default function ListOfGifs({ keyword }) {
           url={url}
         />
       )}
-    </>
+    </div>
   )
 }
