@@ -1,21 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import getSingleGif from '../../services/getSingleGif'
+import React, { useContext } from 'react'
 import Gif from '../../components/Gif'
+import GifContext from '../../context/GifsContext'
 
 export default function SingleGif({ params }) {
-  const [gif, setGif] = useState('')
-  const { id } = params
+  const {gifs} = useContext(GifContext)
 
-  useEffect(function() {
-    getSingleGif({ id })
-      .then(gif => setGif(gif))
-  }, [id])
+  const gif = gifs.find(singleGif => singleGif.id === params.id)
 
   return (
-    <Gif
-      id={gif.id}
-      title={gif.title}
-      url={gif.url}
-    />
+    <Gif {...gif} />
   )
 }

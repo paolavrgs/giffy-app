@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext} from 'react'
 import getGifs from '../services/getGifs'
+import GifsContext from '../context/GifsContext'
 
 export function useGifs({ keyword } = { keyword: null }) {
-  const [gifs, setGifs] = useState([])
+  const {gifs, setGifs} = useContext(GifsContext)
   const [loading, setLoading] = useState(false)
 
   useEffect(function() {
@@ -18,7 +19,7 @@ export function useGifs({ keyword } = { keyword: null }) {
         // Guardar keywork en el localStorage
         localStorage.setItem('lastKeyword', keyword)
       })
-  }, [keyword])
+  }, [keyword, setGifs])
 
   return {loading, gifs}
 }
